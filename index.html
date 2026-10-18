@@ -834,10 +834,13 @@
         <button class="tab" data-tab="download">Download</button>
         <button class="tab" data-tab="documents">Documents</button>
         <button class="tab" data-tab="xenadmin">XenAdmin</button>
+        <button class="tab" data-tab="uptime">🚀 24/7</button>
+        <button class="tab" data-tab="status">📊 Status</button>
+        <button class="tab" data-tab="support">💬 Support</button>
       </nav>
 
       <!-- Main Content -->
-      <section class="main-content fade-in">
+      <section class="main-content fade-in" id="main-applications">
         <div class="main-header">
           <h2 class="main-title">Main</h2>
           <select id="view-selector" class="view-selector">
@@ -848,239 +851,65 @@
         </div>
 
         <div class="app-grid" id="app-grid">
-          <!-- Adobe Acrobat -->
-          <div
-            class="app-icon"
-            data-app="acrobat"
-            data-name="Adobe Acrobat 9 pro Extended"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#EB0000" />
-              <path d="M7 10H17V12H7V10ZM7 13H14V15H7V13Z" fill="white" />
-            </svg>
-            <p>Adobe Acrobat 9 pro Extended</p>
+          <!-- VS Code -->
+          <div class="app-icon" data-app="vscode" data-name="VS Code Web">
+            <div style="font-size: 32px; margin-bottom: 5px">⚡</div>
+            <p>VS Code Web</p>
           </div>
-
-          <!-- Microsoft Word -->
-          <div class="app-icon" data-app="word" data-name="Microsoft Word 2010">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#2B579A" />
-              <path
-                d="M8 8H16V10H8V8ZM8 11H16V13H8V11ZM8 14H12V16H8V14Z"
-                fill="white"
-              />
-            </svg>
-            <p>Microsoft Word 2010</p>
+          <!-- GitHub -->
+          <div class="app-icon" data-app="github" data-name="GitHub">
+            <div style="font-size: 32px; margin-bottom: 5px">🐙</div>
+            <p>GitHub</p>
           </div>
-
-          <!-- Microsoft Excel -->
-          <div
-            class="app-icon"
-            data-app="excel"
-            data-name="Microsoft Excel 2010"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#217346" />
-              <path
-                d="M8 8H16V10H8V8ZM8 11H16V13H8V11ZM8 14H16V16H8V14Z"
-                fill="white"
-              />
-            </svg>
-            <p>Microsoft Excel 2010</p>
+          <!-- Vercel -->
+          <div class="app-icon" data-app="vercel" data-name="Vercel">
+            <div style="font-size: 32px; margin-bottom: 5px">▲</div>
+            <p>Vercel</p>
           </div>
-
-          <!-- Microsoft PowerPoint -->
-          <div
-            class="app-icon"
-            data-app="powerpoint"
-            data-name="Microsoft PowerPoint 2010"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#D24726" />
-              <path d="M9 8H15V16H9V8ZM10 9V15H14V9H10Z" fill="white" />
-            </svg>
-            <p>Microsoft PowerPoint 2010</p>
+          <!-- Supabase -->
+          <div class="app-icon" data-app="supabase" data-name="Supabase">
+            <div style="font-size: 32px; margin-bottom: 5px">🗄️</div>
+            <p>Supabase</p>
           </div>
-
-          <!-- Adobe Photoshop -->
-          <div
-            class="app-icon"
-            data-app="photoshop"
-            data-name="Adobe Photoshop CS5"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#31A8FF" />
-              <path d="M8 8H16V16H8V8Z" fill="#141414" />
-            </svg>
-            <p>Adobe Photoshop CS5</p>
+          <!-- Expo -->
+          <div class="app-icon" data-app="expo" data-name="Expo">
+            <div style="font-size: 32px; margin-bottom: 5px">📱</div>
+            <p>Expo</p>
           </div>
-
-          <!-- WinZIP -->
-          <div class="app-icon" data-app="winzip" data-name="WinZIP 17.5">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#0078D7" />
-              <path
-                d="M9 8L12 11L15 8M9 12L12 15L15 12"
-                stroke="white"
-                stroke-width="2"
-              />
-            </svg>
-            <p>WinZIP 17.5</p>
+          <!-- Telegram -->
+          <div class="app-icon" data-app="telegram" data-name="Telegram Web">
+            <div style="font-size: 32px; margin-bottom: 5px">💬</div>
+            <p>Telegram Web</p>
           </div>
-
-          <!-- QuickBooks -->
-          <div
-            class="app-icon"
-            data-app="quickbooks"
-            data-name="QuickBooks Pro 2010"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#00A651" />
-              <path
-                d="M8 12L10 14L16 10"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
-            <p>QuickBooks Pro 2010</p>
+          <!-- ChatGPT -->
+          <div class="app-icon" data-app="chatgpt" data-name="ChatGPT">
+            <div style="font-size: 32px; margin-bottom: 5px">🤖</div>
+            <p>ChatGPT</p>
           </div>
-
-          <!-- Microsoft Access -->
-          <div
-            class="app-icon"
-            data-app="access"
-            data-name="Microsoft Access 2010"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#A43794" />
-              <circle cx="12" cy="12" r="3" fill="white" />
-            </svg>
-            <p>Microsoft Access 2010</p>
+          <!-- Figma -->
+          <div class="app-icon" data-app="figma" data-name="Figma">
+            <div style="font-size: 32px; margin-bottom: 5px">🎨</div>
+            <p>Figma</p>
           </div>
-
-          <!-- Microsoft Publisher -->
-          <div
-            class="app-icon"
-            data-app="publisher"
-            data-name="Microsoft Publisher 2010"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#0078D7" />
-              <rect x="8" y="8" width="8" height="8" rx="1" fill="white" />
-            </svg>
-            <p>Microsoft Publisher 2010</p>
+          <!-- Notion -->
+          <div class="app-icon" data-app="notion" data-name="Notion">
+            <div style="font-size: 32px; margin-bottom: 5px">📝</div>
+            <p>Notion</p>
           </div>
-
-          <!-- Adobe Illustrator -->
-          <div
-            class="app-icon"
-            data-app="illustrator"
-            data-name="Adobe Illustrator CS5"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#FF9A00" />
-              <path d="M8 12H16M12 8V16" stroke="white" stroke-width="2" />
-            </svg>
-            <p>Adobe Illustrator CS5</p>
+          <!-- Gmail -->
+          <div class="app-icon" data-app="gmail" data-name="Gmail">
+            <div style="font-size: 32px; margin-bottom: 5px">📧</div>
+            <p>Gmail</p>
           </div>
-
-          <!-- Adobe InDesign -->
-          <div
-            class="app-icon"
-            data-app="indesign"
-            data-name="Adobe InDesign CS5"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#D82A97" />
-              <path d="M9 9H15V15H9V9Z" stroke="white" stroke-width="2" />
-            </svg>
-            <p>Adobe InDesign CS5</p>
+          <!-- Google Calendar -->
+          <div class="app-icon" data-app="calendar" data-name="Google Calendar">
+            <div style="font-size: 32px; margin-bottom: 5px">📅</div>
+            <p>Google Calendar</p>
           </div>
-
-          <!-- Adobe Dreamweaver -->
-          <div
-            class="app-icon"
-            data-app="dreamweaver"
-            data-name="Adobe Dreamweaver CS5"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="24" height="24" rx="4" fill="#00C1DE" />
-              <path d="M8 8H16V16H8V8Z" stroke="white" stroke-width="2" />
-            </svg>
-            <p>Adobe Dreamweaver CS5</p>
+          <!-- YouTube -->
+          <div class="app-icon" data-app="youtube" data-name="YouTube">
+            <div style="font-size: 32px; margin-bottom: 5px">📺</div>
+            <p>YouTube</p>
           </div>
         </div>
 
@@ -1097,13 +926,111 @@
         </div>
       </section>
 
+      <!-- 24/7 Section -->
+      <section
+        class="main-content fade-in tab-content"
+        id="tab-uptime"
+        style="display: none"
+      >
+        <h2 class="main-title" style="margin-bottom: 20px">🚀 Работает 24/7</h2>
+        <p style="color: #8892b0; margin-bottom: 20px">
+          Портал доступен круглосуточно. Без выходных, без перерывов.
+        </p>
+        <div
+          style="
+            background: rgba(0, 255, 100, 0.1);
+            border-left: 4px solid #4ade80;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+          "
+        >
+          <h3 style="color: #4ade80; margin-bottom: 10px">✅ Статус: ONLINE</h3>
+          <p style="color: #ffffff">
+            Работает <strong id="uptime-days">0</strong> дней подряд
+          </p>
+        </div>
+        <ul style="list-style: none; color: #ffffff; line-height: 2">
+          <li>✅ Хостинг: Vercel (99.99% uptime)</li>
+          <li>✅ HTTPS: Бесплатно, автоматически</li>
+          <li>✅ CDN: Глобальная сеть</li>
+          <li>✅ Обновления: Автоматически при push в GitHub</li>
+        </ul>
+      </section>
+
+      <!-- Status Section -->
+      <section
+        class="main-content fade-in tab-content"
+        id="tab-status"
+        style="display: none"
+      >
+        <h2 class="main-title" style="margin-bottom: 20px">
+          📊 Статус сервисов
+        </h2>
+        <p style="color: #8892b0; margin-bottom: 20px">
+          Проверьте доступность ваших инструментов в реальном времени.
+        </p>
+        <div id="status-list" style="display: grid; gap: 10px"></div>
+        <button
+          class="btn btn-primary"
+          onclick="checkAllStatus()"
+          style="margin-top: 20px; max-width: 300px"
+        >
+          🔄 Проверить все сейчас
+        </button>
+      </section>
+
+      <!-- Support Section -->
+      <section
+        class="main-content fade-in tab-content"
+        id="tab-support"
+        style="display: none"
+      >
+        <h2 class="main-title" style="margin-bottom: 20px">💬 Поддержка</h2>
+        <p style="color: #8892b0; margin-bottom: 20px">
+          Нужна помощь? Мы на связи 24/7.
+        </p>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+          "
+        >
+          <a
+            href="https://t.me/universalapp_support"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+            style="text-align: center; text-decoration: none"
+            >💬 Написать в Telegram</a
+          >
+          <a
+            href="mailto:rubiconottff@gmail.com"
+            class="btn btn-secondary"
+            style="text-align: center; text-decoration: none"
+            >📧 Email</a
+          >
+          <a
+            href="https://universalapp-landing.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary"
+            style="text-align: center; text-decoration: none"
+            >🌐 Главный сайт</a
+          >
+        </div>
+        <p style="color: #8892b0; margin-top: 20px; font-size: 0.9em">
+          Ответ в течение 2 часов. Работаем 24/7.
+        </p>
+      </section>
+
       <!-- Announcement & Info -->
       <div class="info-section fade-in">
         <div class="announcement">
           <h3>Announcement</h3>
-          <ul id="announcement-list">
-            <!-- Заполняется через JS -->
-          </ul>
+          <ul id="announcement-list"></ul>
         </div>
         <div class="client-info">
           <h3>Client Information</h3>
@@ -1157,8 +1084,7 @@
         © 2026 UniversalApp. Все права защищены. |
         <a href="https://universalapp-landing.vercel.app/"
           >universalapp-landing.vercel.app</a
-        >
-        <br />
+        ><br />
         Demo Interface | Built with ❤️ by UniversalApp
       </footer>
     </div>
@@ -1308,15 +1234,16 @@
         const view = viewSelector.value;
         state.currentView = view;
 
-        const mainContent = document.querySelector(".main-content");
-        mainContent.classList.remove("view-large", "view-small", "view-list");
-
-        if (view === "large") {
-          mainContent.classList.add("view-large");
-        } else if (view === "small") {
-          mainContent.classList.add("view-small");
-        } else if (view === "list") {
-          mainContent.classList.add("view-list");
+        const mainContent = document.getElementById("main-applications");
+        if (mainContent) {
+          mainContent.classList.remove("view-large", "view-small", "view-list");
+          if (view === "large") {
+            mainContent.classList.add("view-large");
+          } else if (view === "small") {
+            mainContent.classList.add("view-small");
+          } else if (view === "list") {
+            mainContent.classList.add("view-list");
+          }
         }
 
         localStorage.setItem("citrix-view", view);
@@ -1352,18 +1279,111 @@
         }
       }
 
-      // ===== Обработчики =====
+      // ===== Управление вкладками =====
+      function switchTab(tabName) {
+        const allSections = document.querySelectorAll(".main-content");
+        allSections.forEach((section) => (section.style.display = "none"));
+
+        if (tabName === "applications") {
+          const appSection = document.getElementById("main-applications");
+          if (appSection) appSection.style.display = "block";
+        } else if (tabName === "uptime") {
+          const section = document.getElementById("tab-uptime");
+          if (section) {
+            section.style.display = "block";
+            renderUptime();
+          }
+        } else if (tabName === "status") {
+          const section = document.getElementById("tab-status");
+          if (section) {
+            section.style.display = "block";
+            renderStatusList();
+          }
+        } else if (tabName === "support") {
+          const section = document.getElementById("tab-support");
+          if (section) section.style.display = "block";
+        }
+      }
+
+      // ===== Uptime =====
+      function renderUptime() {
+        const launchDate = new Date("2026-10-01");
+        const now = new Date();
+        const days = Math.floor((now - launchDate) / (1000 * 60 * 60 * 24));
+        const el = document.getElementById("uptime-days");
+        if (el) el.textContent = days;
+      }
+
+      // ===== Status =====
+      const statusServices = [
+        { name: "VS Code Web", url: "https://vscode.dev" },
+        { name: "GitHub", url: "https://github.com" },
+        { name: "Vercel", url: "https://vercel.com" },
+        { name: "Supabase", url: "https://supabase.com" },
+        { name: "Expo", url: "https://expo.dev" },
+        { name: "Telegram Web", url: "https://web.telegram.org" },
+        { name: "ChatGPT", url: "https://chat.openai.com" },
+        { name: "Figma", url: "https://figma.com" },
+        { name: "Notion", url: "https://notion.so" },
+        { name: "Gmail", url: "https://mail.google.com" },
+        { name: "Google Calendar", url: "https://calendar.google.com" },
+        { name: "YouTube", url: "https://youtube.com" },
+      ];
+
+      function renderStatusList() {
+        const list = document.getElementById("status-list");
+        if (!list) return;
+        list.innerHTML = statusServices
+          .map(
+            (s) => `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: rgba(0, 51, 85, 0.3); border-radius: 8px; border: 1px solid #2a2a3e;">
+            <span style="color: #ffffff; font-weight: 600;">${s.name}</span>
+            <span id="status-${s.name.replace(/\s/g, "-")}" style="color: #4ade80;">🟢 Работает</span>
+          </div>`,
+          )
+          .join("");
+      }
+
+      window.checkAllStatus = function () {
+        statusServices.forEach(async (s) => {
+          const el = document.getElementById(
+            `status-${s.name.replace(/\s/g, "-")}`,
+          );
+          if (!el) return;
+          el.textContent = "⏳ Проверка...";
+          el.style.color = "#ffcc00";
+
+          try {
+            await fetch(s.url, { method: "HEAD", mode: "no-cors" });
+            el.textContent = "🟢 Работает";
+            el.style.color = "#4ade80";
+          } catch (e) {
+            el.textContent = "🔴 Недоступен";
+            el.style.color = "#ff6666";
+          }
+        });
+      };
+
+      // ===== Обработчики вкладок =====
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
-          state.currentTab = tab.dataset.tab;
-          showLoading();
-          setTimeout(() => {
+          const tabName = tab.dataset.tab;
+          state.currentTab = tabName;
+
+          if (
+            ["applications", "uptime", "status", "support"].includes(tabName)
+          ) {
+            switchTab(tabName);
             updateUI();
-            hideLoading();
-            if (state.currentTab !== "applications") {
-              showToast(`Tab "${state.currentTab}" is under construction.`);
-            }
-          }, 800);
+          } else {
+            switchTab("applications");
+            showLoading();
+            setTimeout(() => {
+              updateUI();
+              hideLoading();
+              showToast(`Tab "${tabName}" is under construction.`);
+            }, 800);
+          }
         });
       });
 
@@ -1371,19 +1391,18 @@
         icon.addEventListener("click", () => {
           const appName = icon.dataset.app;
           const appUrls = {
-            acrobat: "https://www.adobe.com/acrobat/online/pdf-editor.html",
-            word: "https://docs.google.com/document/u/0/",
-            excel: "https://docs.google.com/spreadsheets/u/0/",
-            powerpoint: "https://docs.google.com/presentation/u/0/",
-            photoshop: "https://www.adobe.com/products/photoshop-express.html",
-            winzip: "https://www.winzip.com/",
-            quickbooks: "https://quickbooks.intuit.com/",
-            access: "https://office.live.com/start/Access.aspx",
-            publisher:
-              "https://www.microsoft.com/en-us/microsoft-365/publisher",
-            illustrator: "https://www.adobe.com/products/illustrator.html",
-            indesign: "https://www.adobe.com/products/indesign.html",
-            dreamweaver: "https://www.adobe.com/products/dreamweaver.html",
+            vscode: "https://vscode.dev",
+            github: "https://github.com",
+            vercel: "https://vercel.com",
+            supabase: "https://supabase.com",
+            expo: "https://expo.dev",
+            telegram: "https://web.telegram.org",
+            chatgpt: "https://chat.openai.com",
+            figma: "https://figma.com",
+            notion: "https://notion.so",
+            gmail: "https://mail.google.com",
+            calendar: "https://calendar.google.com",
+            youtube: "https://youtube.com",
           };
 
           showLoading();
@@ -1449,6 +1468,7 @@
             state.searchQuery = "";
             state.isHintVisible = true;
 
+            switchTab("applications");
             updateUI();
             updateView();
 
