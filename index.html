@@ -3,23 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Interface</title>
+    <title>UniversalApp — Demo Interface</title>
     <style>
       /* ===== Цветовая палитра ===== */
       :root {
-        --primary-dark: #001a2d;
-        --primary: #006699;
-        --panel-bg: #004d73;
-        --panel-border: #003355;
-        --button-active: #0080b3;
-        --button-hover: #00a3d6;
+        --primary-dark: #0a0a0a;
+        --primary: #667eea;
+        --panel-bg: #1a1a2e;
+        --panel-border: #2a2a3e;
+        --button-active: #764ba2;
+        --button-hover: #667eea;
         --text: #ffffff;
-        --accent: #ffff00;
+        --accent: #f093fb;
         --shadow: rgba(0, 0, 0, 0.4);
-        --hint-bg: rgba(0, 0, 0, 0.2);
-        --hover-bg: rgba(0, 85, 115, 0.5);
-        --toast-bg: #002233;
-        --toast-border: #00a3d6;
+        --hint-bg: rgba(255, 255, 255, 0.05);
+        --hover-bg: rgba(102, 126, 234, 0.15);
+        --toast-bg: #1a1a2e;
+        --toast-border: #667eea;
       }
 
       * {
@@ -30,21 +30,27 @@
       }
 
       body {
-        background: linear-gradient(
-          135deg,
-          var(--primary-dark),
-          var(--primary)
-        );
+        background: #0a0a0a;
+        background-image:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(102, 126, 234, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(240, 147, 251, 0.1) 0%,
+            transparent 50%
+          );
         color: var(--text);
         padding: 20px;
         min-height: 100vh;
         position: relative;
         overflow-x: hidden;
-        opacity: 0; /* Для плавного появления */
+        opacity: 0;
         transition: opacity 0.5s ease;
       }
 
-      /* ===== Фоновые эффекты ===== */
       body::before {
         content: "";
         position: absolute;
@@ -550,7 +556,7 @@
 
       /* ===== Анимация загрузки ===== */
       .loading {
-        display: none; /* Скрыто по умолчанию */
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -765,8 +771,7 @@
     <div class="container">
       <!-- Header -->
       <header class="header fade-in">
-        <div class="logo-left">INTERFACE <span>PLANET</span></div>
-        <div class="logo-right">Web Interface</div>
+        <div class="logo-right">⚡ UniversalApp — Demo Interface</div>
         <div class="social">
           Follow us on:
           <span class="icons">
@@ -1088,7 +1093,7 @@
             >Hint: Unable to find the resource you need? Use Search to locate it
             for you.</span
           >
-          <span class="hint-close" id="hint-close">×</span>
+          <span class="hint-close" id="hint-close">&times;</span>
         </div>
       </section>
 
@@ -1109,7 +1114,7 @@
             </tr>
             <tr>
               <td>Email:</td>
-              <td id="info-email">demo@interfaceplanet.com</td>
+              <td id="info-email">demo@universalapp.kz</td>
             </tr>
             <tr>
               <td>Phone:</td>
@@ -1117,19 +1122,19 @@
             </tr>
             <tr>
               <td>Title:</td>
-              <td>Interfaceplanet</td>
+              <td>UniversalApp</td>
             </tr>
             <tr>
               <td>Department:</td>
-              <td>Interfaceplanet Department</td>
+              <td>UniversalApp Department</td>
             </tr>
             <tr>
               <td>Company:</td>
-              <td>www.interfaceplanet.com</td>
+              <td>https://universalapp-landing.vercel.app</td>
             </tr>
             <tr>
               <td>Client Name:</td>
-              <td id="info-name">Demo Client Name</td>
+              <td id="info-name">Demo User</td>
             </tr>
             <tr>
               <td>Client IP:</td>
@@ -1141,7 +1146,7 @@
             </tr>
             <tr>
               <td>Web Interface Server:</td>
-              <td>Demo Server Name</td>
+              <td>UniversalApp Server</td>
             </tr>
           </table>
         </div>
@@ -1149,11 +1154,12 @@
 
       <!-- Footer -->
       <footer class="footer fade-in">
-        Copyright 2025 interfaceplanet.com | Phone: +7-000-000-0000 | Email:
-        <a href="mailto:info@interfaceplanet.com">info@interfaceplanet.com</a
-        ><br />
-        Design by Interfaceplanet Web Design Studio |
-        <a href="http://www.interfaceplanet.com">www.interfaceplanet.com</a>
+        © 2026 UniversalApp. Все права защищены. |
+        <a href="https://universalapp-landing.vercel.app/"
+          >universalapp-landing.vercel.app</a
+        >
+        <br />
+        Demo Interface | Built with ❤️ by UniversalApp
       </footer>
     </div>
 
@@ -1238,9 +1244,8 @@
 
       // ===== Инициализация =====
       function init() {
-        console.log("🚀 Web Interface initialized...");
+        console.log("🚀 UniversalApp Demo initialized...");
 
-        // Загрузка сохраненного вида
         const savedView = localStorage.getItem("citrix-view");
         if (savedView && ["large", "small", "list"].includes(savedView)) {
           state.currentView = savedView;
@@ -1252,7 +1257,6 @@
         updateView();
         hideLoading();
 
-        // Плавное появление body
         setTimeout(() => {
           document.body.style.opacity = "1";
         }, 100);
@@ -1270,7 +1274,6 @@
 
       // ===== Обновление UI =====
       function updateUI() {
-        // Вкладки
         tabs.forEach((tab) => {
           if (tab.dataset.tab === state.currentTab) {
             tab.classList.add("active");
@@ -1279,17 +1282,14 @@
           }
         });
 
-        // Подсказка
         if (state.isHintVisible) {
           hintBox.style.display = "flex";
         } else {
           hintBox.style.display = "none";
         }
 
-        // Статус пользователя
         userStatusText.textContent = `Logged on as: ${state.currentUser}`;
 
-        // Кнопка входа/выхода
         if (state.currentUser === "Guest") {
           authBtn.textContent = "Log In";
           authBtn.classList.remove("logout");
@@ -1300,7 +1300,6 @@
           authBtn.classList.remove("login-btn");
         }
 
-        // Поле поиска
         searchInput.value = state.searchQuery;
       }
 
@@ -1332,7 +1331,7 @@
         appIcons.forEach((icon) => {
           const name = icon.dataset.name.toLowerCase();
           if (name.includes(query)) {
-            icon.style.display = "flex"; // Возвращаем нужный display
+            icon.style.display = "flex";
             if (state.currentView === "list") icon.style.display = "flex";
             visibleCount++;
           } else {
@@ -1340,13 +1339,11 @@
           }
         });
 
-        // Показываем сообщение, если ничего не найдено
         if (visibleCount === 0 && query.length > 0) {
           noResults.classList.add("visible");
           appGrid.style.display = "none";
         } else {
           noResults.classList.remove("visible");
-          // Восстанавливаем сетку в зависимости от вида
           if (state.currentView === "list") {
             appGrid.style.display = "flex";
           } else {
@@ -1363,7 +1360,6 @@
           setTimeout(() => {
             updateUI();
             hideLoading();
-            // Здесь можно добавить логику загрузки контента для вкладки
             if (state.currentTab !== "applications") {
               showToast(`Tab "${state.currentTab}" is under construction.`);
             }
@@ -1371,7 +1367,6 @@
         });
       });
 
-      // Клик по иконкам приложений
       appIcons.forEach((icon) => {
         icon.addEventListener("click", () => {
           const appName = icon.dataset.app;
@@ -1403,7 +1398,6 @@
         });
       });
 
-      // Поиск (ввод)
       searchInput.addEventListener("input", () => {
         state.searchQuery = searchInput.value.trim();
 
@@ -1415,10 +1409,9 @@
           searchInput.style.color = "#ffffff";
         }
 
-        filterApps(); // Живая фильтрация
+        filterApps();
       });
 
-      // Поиск (Enter)
       searchInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
           showLoading();
@@ -1431,7 +1424,6 @@
         }
       });
 
-      // Клик по иконке поиска
       document.getElementById("search-btn").addEventListener("click", () => {
         if (state.searchQuery) {
           showToast(`Searching for: "${state.searchQuery}"`);
@@ -1440,20 +1432,16 @@
         }
       });
 
-      // Закрытие подсказки
       hintClose.addEventListener("click", () => {
         state.isHintVisible = false;
         updateUI();
       });
 
-      // Авторизация (Log In / Log Off)
       window.handleAuth = function (event) {
         event.preventDefault();
         if (state.currentUser === "Guest") {
-          // Открываем модальное окно
           loginModal.classList.add("active");
         } else {
-          // Выход
           showLoading();
           setTimeout(() => {
             state.currentUser = "Guest";
@@ -1464,7 +1452,6 @@
             updateUI();
             updateView();
 
-            // Сброс поиска
             searchInput.value = "";
             appIcons.forEach((icon) => (icon.style.display = "flex"));
             noResults.classList.remove("visible");
@@ -1475,7 +1462,6 @@
         }
       };
 
-      // Функция входа
       window.performLogin = function () {
         const username = document.getElementById("login-username").value.trim();
         if (!username) {
@@ -1503,24 +1489,21 @@
         loginModal.classList.remove("active");
       };
 
-      // Переключение вида
       viewSelector.addEventListener("change", () => {
         showLoading();
         setTimeout(() => {
           updateView();
-          filterApps(); // Переприменяем фильтр, чтобы сетка/список отображались правильно
+          filterApps();
           hideLoading();
         }, 500);
       });
 
-      // ===== Тосты (Уведомления) =====
       window.showToast = function (message) {
         const toast = document.createElement("div");
         toast.className = "toast";
         toast.textContent = message;
         toastContainer.appendChild(toast);
 
-        // Автоудаление через 3 секунды
         setTimeout(() => {
           toast.classList.add("fade-out");
           setTimeout(() => {
@@ -1531,7 +1514,6 @@
         }, 3000);
       };
 
-      // ===== Анимации =====
       function showLoading() {
         state.isLoading = true;
         loadingScreen.classList.add("active");
@@ -1542,7 +1524,6 @@
         loadingScreen.classList.remove("active");
       }
 
-      // ===== Запуск =====
       document.addEventListener("DOMContentLoaded", init);
 
       document.querySelectorAll(".fade-in").forEach((el, index) => {
