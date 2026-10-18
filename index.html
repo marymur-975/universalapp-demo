@@ -1,0 +1,1553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Interface</title>
+    <style>
+      /* ===== Цветовая палитра ===== */
+      :root {
+        --primary-dark: #001a2d;
+        --primary: #006699;
+        --panel-bg: #004d73;
+        --panel-border: #003355;
+        --button-active: #0080b3;
+        --button-hover: #00a3d6;
+        --text: #ffffff;
+        --accent: #ffff00;
+        --shadow: rgba(0, 0, 0, 0.4);
+        --hint-bg: rgba(0, 0, 0, 0.2);
+        --hover-bg: rgba(0, 85, 115, 0.5);
+        --toast-bg: #002233;
+        --toast-border: #00a3d6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+        color: var(--text);
+        padding: 20px;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        opacity: 0; /* Для плавного появления */
+        transition: opacity 0.5s ease;
+      }
+
+      /* ===== Фоновые эффекты ===== */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(
+            circle at 30% 30%,
+            rgba(0, 102, 153, 0.1) 0%,
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at 70% 70%,
+            rgba(0, 102, 153, 0.1) 0%,
+            transparent 20%
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      /* ===== Header ===== */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background: linear-gradient(to right, #003355, #006699);
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 4px 8px var(--shadow);
+        position: relative;
+        z-index: 10;
+      }
+
+      .logo-left {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .logo-left span {
+        color: #ffcc00;
+        font-weight: 900;
+      }
+
+      .logo-right {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+      }
+
+      .social {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9em;
+      }
+
+      .social .icons {
+        display: flex;
+        gap: 6px;
+      }
+
+      .social .icon {
+        width: 24px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .social .icon:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: scale(1.1);
+      }
+
+      /* ===== User Panel ===== */
+      .user-panel {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background: var(--panel-bg);
+        box-shadow: 0 2px 6px var(--shadow);
+        position: relative;
+        z-index: 9;
+      }
+
+      .user-status {
+        font-weight: bold;
+        color: var(--accent);
+      }
+
+      .search-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+      }
+
+      .search {
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: none;
+        background: #003355;
+        color: white;
+        font-size: 0.9em;
+        transition: all 0.2s ease;
+        width: 200px;
+      }
+
+      .search:focus {
+        outline: 2px solid var(--button-hover);
+        box-shadow: 0 0 8px rgba(0, 163, 214, 0.5);
+      }
+
+      .search-icon {
+        width: 24px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8em;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .search-icon:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        font-size: 0.9em;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+      }
+
+      .logout {
+        color: #ff6666;
+        font-weight: bold;
+      }
+
+      .logout:hover {
+        color: #ff3333;
+      }
+
+      .login-btn {
+        color: #66ff66;
+        font-weight: bold;
+      }
+      .login-btn:hover {
+        color: #33cc33;
+      }
+
+      /* ===== Tabs ===== */
+      .tabs {
+        display: flex;
+        gap: 5px;
+        padding: 10px 20px;
+        background: var(--panel-bg);
+        border-top: 1px solid var(--panel-border);
+        border-bottom: 1px solid var(--panel-border);
+        position: relative;
+        z-index: 8;
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        padding: 8px 16px;
+        border-radius: 6px 6px 0 0;
+        background: linear-gradient(
+          to bottom,
+          var(--button-active),
+          var(--button-hover)
+        );
+        border: 1px solid var(--panel-border);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        color: white;
+        font-size: 0.9em;
+      }
+
+      .tab::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to bottom right,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .tab:hover::before {
+        opacity: 1;
+      }
+
+      .tab:hover {
+        background: linear-gradient(to bottom, var(--button-hover), #0080b3);
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .tab.active {
+        background: linear-gradient(to bottom, var(--button-hover), #0080b3);
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 4px 12px rgba(0, 163, 214, 0.5);
+      }
+
+      /* ===== Main Content ===== */
+      .main-content {
+        background: var(--panel-bg);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: 0 4px 12px var(--shadow);
+        position: relative;
+        z-index: 7;
+        transition: all 0.3s ease;
+        min-height: 300px;
+      }
+
+      .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .main-title {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+
+      .view-selector {
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: 1px solid var(--panel-border);
+        background: #003355;
+        color: white;
+        font-size: 0.9em;
+        cursor: pointer;
+      }
+
+      /* ===== Режимы отображения ===== */
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .app-icon {
+        text-align: center;
+        padding: 10px;
+        background: rgba(0, 51, 85, 0.3);
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+      }
+
+      .app-icon svg {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 5px;
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s ease;
+      }
+
+      .app-icon p {
+        font-size: 0.75em;
+        line-height: 1.2;
+        word-wrap: break-word;
+        margin: 0;
+        padding: 0;
+        transition: color 0.2s;
+      }
+
+      .app-icon:hover {
+        background: rgba(0, 85, 115, 0.5);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        border-color: var(--button-hover);
+      }
+
+      .app-icon:hover svg {
+        transform: scale(1.1);
+      }
+
+      /* Маленькие значки */
+      .view-small .app-grid {
+        grid-template-columns: repeat(10, 1fr);
+        gap: 10px;
+      }
+
+      .view-small .app-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .view-small .app-icon p {
+        font-size: 0.65em;
+      }
+
+      /* Список */
+      .view-list .app-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .view-list .app-icon {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 8px 15px;
+        text-align: left;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .view-list .app-icon svg {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .view-list .app-icon p {
+        font-size: 0.9em;
+        margin: 0;
+      }
+
+      .view-list .app-icon:hover {
+        transform: translateX(5px);
+        background: rgba(0, 85, 115, 0.7);
+      }
+
+      /* Сообщение "Ничего не найдено" */
+      .no-results {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        font-size: 1.1em;
+        color: rgba(255, 255, 255, 0.6);
+        font-style: italic;
+      }
+      .no-results.visible {
+        display: block;
+      }
+
+      .hint {
+        margin-top: 15px;
+        padding: 8px;
+        background: var(--hint-bg);
+        border-radius: 4px;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .hint-close {
+        font-size: 0.8em;
+        cursor: pointer;
+        color: #ffcc00;
+        font-weight: bold;
+        padding: 0 5px;
+      }
+
+      .hint-close:hover {
+        color: #ff9900;
+      }
+
+      /* ===== Announcement & Info ===== */
+      .info-section {
+        display: flex;
+        gap: 20px;
+        margin: 20px 0;
+        position: relative;
+        z-index: 6;
+      }
+
+      .announcement,
+      .client-info {
+        background: var(--panel-bg);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px var(--shadow);
+        flex: 1;
+        min-width: 0;
+      }
+
+      .announcement h3,
+      .client-info h3 {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        font-weight: bold;
+        border-bottom: 1px solid var(--panel-border);
+        padding-bottom: 5px;
+      }
+
+      .announcement ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .announcement li {
+        margin-bottom: 8px;
+        font-size: 0.85em;
+        line-height: 1.4;
+        padding: 5px;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        transition: background 0.2s;
+      }
+      .announcement li:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .client-info table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85em;
+      }
+
+      .client-info td {
+        padding: 5px;
+        border-bottom: 1px solid var(--panel-border);
+        vertical-align: top;
+      }
+
+      .client-info td:first-child {
+        font-weight: bold;
+        width: 35%;
+        color: #99ccff;
+      }
+
+      /* ===== Footer ===== */
+      .footer {
+        text-align: center;
+        padding: 15px;
+        background: var(--panel-bg);
+        border-radius: 0 0 8px 8px;
+        margin-top: 20px;
+        font-size: 0.8em;
+        position: relative;
+        z-index: 5;
+      }
+
+      .footer a {
+        color: #ffcc00;
+        text-decoration: underline;
+      }
+
+      .footer a:hover {
+        color: #ff9900;
+      }
+
+      /* ===== Анимация загрузки ===== */
+      .loading {
+        display: none; /* Скрыто по умолчанию */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .loading.active {
+        display: flex;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid var(--button-hover);
+        animation: spin 1s linear infinite;
+        margin-bottom: 10px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-text {
+        color: white;
+        font-size: 1.1em;
+        font-weight: bold;
+      }
+
+      /* ===== Тосты (Уведомления) ===== */
+      .toast-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .toast {
+        background: var(--toast-bg);
+        border-left: 4px solid var(--toast-border);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        animation: slideIn 0.3s ease forwards;
+        max-width: 300px;
+        font-size: 0.9em;
+      }
+
+      .toast.fade-out {
+        animation: slideOut 0.3s ease forwards;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+
+      /* ===== Модальное окно входа ===== */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10001;
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-overlay.active {
+        display: flex;
+      }
+      .modal {
+        background: var(--panel-bg);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid var(--button-hover);
+        animation: fadeIn 0.3s ease;
+      }
+      .modal h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: var(--accent);
+      }
+      .modal input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        background: #003355;
+        border: 1px solid var(--panel-border);
+        border-radius: 4px;
+        color: white;
+      }
+      .modal input:focus {
+        outline: 2px solid var(--button-hover);
+      }
+      .modal-buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.2s;
+        flex: 1;
+      }
+      .btn-primary {
+        background: var(--button-hover);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #00c3ff;
+      }
+      .btn-secondary {
+        background: #555;
+        color: white;
+      }
+      .btn-secondary:hover {
+        background: #777;
+      }
+
+      /* ===== Анимация при входе ===== */
+      .fade-in {
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== Мобильная адаптация ===== */
+      @media (max-width: 768px) {
+        .app-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .view-small .app-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+        .info-section {
+          flex-direction: column;
+        }
+        .header {
+          flex-direction: column;
+          gap: 10px;
+          text-align: center;
+        }
+        .user-panel {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .search {
+          width: 100%;
+        }
+        .search-container {
+          width: 100%;
+        }
+        .tabs {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header fade-in">
+        <div class="logo-left">INTERFACE <span>PLANET</span></div>
+        <div class="logo-right">Web Interface</div>
+        <div class="social">
+          Follow us on:
+          <span class="icons">
+            <div class="icon">f</div>
+            <div class="icon">t</div>
+            <div class="icon">in</div>
+          </span>
+        </div>
+      </header>
+
+      <!-- User Panel -->
+      <div class="user-panel fade-in">
+        <span class="user-status" id="user-status-text"
+          >Logged on as: Demo</span
+        >
+        <div class="search-container">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search applications..."
+            class="search"
+          />
+          <div class="search-icon" id="search-btn">🔍</div>
+        </div>
+        <div class="nav-links">
+          <a
+            href="#"
+            class="nav-link"
+            onclick="
+              showToast('Messages are not implemented yet.');
+              return false;
+            "
+            >Messages</a
+          >
+          <a
+            href="#"
+            class="nav-link"
+            onclick="
+              showToast('Settings are not implemented yet.');
+              return false;
+            "
+            >Settings</a
+          >
+          <a
+            href="#"
+            class="nav-link logout"
+            id="auth-btn"
+            onclick="handleAuth(event)"
+            >Log Off</a
+          >
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <nav class="tabs fade-in">
+        <button class="tab active" data-tab="applications">Applications</button>
+        <button class="tab" data-tab="desktops">Desktops</button>
+        <button class="tab" data-tab="content">Content</button>
+        <button class="tab" data-tab="email">Email</button>
+        <button class="tab" data-tab="download">Download</button>
+        <button class="tab" data-tab="documents">Documents</button>
+        <button class="tab" data-tab="xenadmin">XenAdmin</button>
+      </nav>
+
+      <!-- Main Content -->
+      <section class="main-content fade-in">
+        <div class="main-header">
+          <h2 class="main-title">Main</h2>
+          <select id="view-selector" class="view-selector">
+            <option value="large">Large Icons</option>
+            <option value="small">Small Icons</option>
+            <option value="list">List</option>
+          </select>
+        </div>
+
+        <div class="app-grid" id="app-grid">
+          <!-- Adobe Acrobat -->
+          <div
+            class="app-icon"
+            data-app="acrobat"
+            data-name="Adobe Acrobat 9 pro Extended"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#EB0000" />
+              <path d="M7 10H17V12H7V10ZM7 13H14V15H7V13Z" fill="white" />
+            </svg>
+            <p>Adobe Acrobat 9 pro Extended</p>
+          </div>
+
+          <!-- Microsoft Word -->
+          <div class="app-icon" data-app="word" data-name="Microsoft Word 2010">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#2B579A" />
+              <path
+                d="M8 8H16V10H8V8ZM8 11H16V13H8V11ZM8 14H12V16H8V14Z"
+                fill="white"
+              />
+            </svg>
+            <p>Microsoft Word 2010</p>
+          </div>
+
+          <!-- Microsoft Excel -->
+          <div
+            class="app-icon"
+            data-app="excel"
+            data-name="Microsoft Excel 2010"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#217346" />
+              <path
+                d="M8 8H16V10H8V8ZM8 11H16V13H8V11ZM8 14H16V16H8V14Z"
+                fill="white"
+              />
+            </svg>
+            <p>Microsoft Excel 2010</p>
+          </div>
+
+          <!-- Microsoft PowerPoint -->
+          <div
+            class="app-icon"
+            data-app="powerpoint"
+            data-name="Microsoft PowerPoint 2010"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#D24726" />
+              <path d="M9 8H15V16H9V8ZM10 9V15H14V9H10Z" fill="white" />
+            </svg>
+            <p>Microsoft PowerPoint 2010</p>
+          </div>
+
+          <!-- Adobe Photoshop -->
+          <div
+            class="app-icon"
+            data-app="photoshop"
+            data-name="Adobe Photoshop CS5"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#31A8FF" />
+              <path d="M8 8H16V16H8V8Z" fill="#141414" />
+            </svg>
+            <p>Adobe Photoshop CS5</p>
+          </div>
+
+          <!-- WinZIP -->
+          <div class="app-icon" data-app="winzip" data-name="WinZIP 17.5">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#0078D7" />
+              <path
+                d="M9 8L12 11L15 8M9 12L12 15L15 12"
+                stroke="white"
+                stroke-width="2"
+              />
+            </svg>
+            <p>WinZIP 17.5</p>
+          </div>
+
+          <!-- QuickBooks -->
+          <div
+            class="app-icon"
+            data-app="quickbooks"
+            data-name="QuickBooks Pro 2010"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#00A651" />
+              <path
+                d="M8 12L10 14L16 10"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <p>QuickBooks Pro 2010</p>
+          </div>
+
+          <!-- Microsoft Access -->
+          <div
+            class="app-icon"
+            data-app="access"
+            data-name="Microsoft Access 2010"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#A43794" />
+              <circle cx="12" cy="12" r="3" fill="white" />
+            </svg>
+            <p>Microsoft Access 2010</p>
+          </div>
+
+          <!-- Microsoft Publisher -->
+          <div
+            class="app-icon"
+            data-app="publisher"
+            data-name="Microsoft Publisher 2010"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#0078D7" />
+              <rect x="8" y="8" width="8" height="8" rx="1" fill="white" />
+            </svg>
+            <p>Microsoft Publisher 2010</p>
+          </div>
+
+          <!-- Adobe Illustrator -->
+          <div
+            class="app-icon"
+            data-app="illustrator"
+            data-name="Adobe Illustrator CS5"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#FF9A00" />
+              <path d="M8 12H16M12 8V16" stroke="white" stroke-width="2" />
+            </svg>
+            <p>Adobe Illustrator CS5</p>
+          </div>
+
+          <!-- Adobe InDesign -->
+          <div
+            class="app-icon"
+            data-app="indesign"
+            data-name="Adobe InDesign CS5"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#D82A97" />
+              <path d="M9 9H15V15H9V9Z" stroke="white" stroke-width="2" />
+            </svg>
+            <p>Adobe InDesign CS5</p>
+          </div>
+
+          <!-- Adobe Dreamweaver -->
+          <div
+            class="app-icon"
+            data-app="dreamweaver"
+            data-name="Adobe Dreamweaver CS5"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#00C1DE" />
+              <path d="M8 8H16V16H8V8Z" stroke="white" stroke-width="2" />
+            </svg>
+            <p>Adobe Dreamweaver CS5</p>
+          </div>
+        </div>
+
+        <div class="no-results" id="no-results">
+          No applications found matching your search.
+        </div>
+
+        <div class="hint" id="hint-box">
+          <span
+            >Hint: Unable to find the resource you need? Use Search to locate it
+            for you.</span
+          >
+          <span class="hint-close" id="hint-close">×</span>
+        </div>
+      </section>
+
+      <!-- Announcement & Info -->
+      <div class="info-section fade-in">
+        <div class="announcement">
+          <h3>Announcement</h3>
+          <ul id="announcement-list">
+            <!-- Заполняется через JS -->
+          </ul>
+        </div>
+        <div class="client-info">
+          <h3>Client Information</h3>
+          <table>
+            <tr>
+              <td>Last Logged in:</td>
+              <td id="info-last-login">21/04/2025 1:10:10 PM</td>
+            </tr>
+            <tr>
+              <td>Email:</td>
+              <td id="info-email">demo@interfaceplanet.com</td>
+            </tr>
+            <tr>
+              <td>Phone:</td>
+              <td>+7-000-000-0000</td>
+            </tr>
+            <tr>
+              <td>Title:</td>
+              <td>Interfaceplanet</td>
+            </tr>
+            <tr>
+              <td>Department:</td>
+              <td>Interfaceplanet Department</td>
+            </tr>
+            <tr>
+              <td>Company:</td>
+              <td>www.interfaceplanet.com</td>
+            </tr>
+            <tr>
+              <td>Client Name:</td>
+              <td id="info-name">Demo Client Name</td>
+            </tr>
+            <tr>
+              <td>Client IP:</td>
+              <td>192.168.1.100</td>
+            </tr>
+            <tr>
+              <td>Interface Client Version:</td>
+              <td>4.5.0</td>
+            </tr>
+            <tr>
+              <td>Web Interface Server:</td>
+              <td>Demo Server Name</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer fade-in">
+        Copyright 2025 interfaceplanet.com | Phone: +7-000-000-0000 | Email:
+        <a href="mailto:info@interfaceplanet.com">info@interfaceplanet.com</a
+        ><br />
+        Design by Interfaceplanet Web Design Studio |
+        <a href="http://www.interfaceplanet.com">www.interfaceplanet.com</a>
+      </footer>
+    </div>
+
+    <!-- Загрузка -->
+    <div class="loading" id="loading-screen">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading Application...</div>
+    </div>
+
+    <!-- Контейнер для тостов -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Модальное окно входа -->
+    <div class="modal-overlay" id="login-modal">
+      <div class="modal">
+        <h2>Login</h2>
+        <input
+          type="text"
+          id="login-username"
+          placeholder="Username"
+          value="Demo"
+        />
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Password"
+          value="password"
+        />
+        <div class="modal-buttons">
+          <button class="btn btn-primary" onclick="performLogin()">
+            Log In
+          </button>
+          <button class="btn btn-secondary" onclick="closeLoginModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ===== Состояние =====
+      const state = {
+        currentUser: "Demo",
+        currentTab: "applications",
+        searchQuery: "",
+        isHintVisible: true,
+        isLoading: false,
+        currentView: "large",
+        loginTime: new Date().toLocaleString(),
+      };
+
+      // ===== DOM Elements =====
+      const tabs = document.querySelectorAll(".tab");
+      const appIcons = document.querySelectorAll(".app-icon");
+      const searchInput = document.getElementById("search-input");
+      const hintBox = document.getElementById("hint-box");
+      const hintClose = document.getElementById("hint-close");
+      const loadingScreen = document.getElementById("loading-screen");
+      const viewSelector = document.getElementById("view-selector");
+      const appGrid = document.getElementById("app-grid");
+      const noResults = document.getElementById("no-results");
+      const userStatusText = document.getElementById("user-status-text");
+      const authBtn = document.getElementById("auth-btn");
+      const loginModal = document.getElementById("login-modal");
+      const toastContainer = document.getElementById("toast-container");
+
+      // ===== Данные объявлений =====
+      const announcementsData = [
+        {
+          date: "21/04/2025 1:10:10 PM",
+          text: "System maintenance scheduled for this weekend.",
+        },
+        {
+          date: "22/05/2025 3:20:15 PM",
+          text: "New versions of Adobe CS5 are now available.",
+        },
+        {
+          date: "24/03/2025 1:14:33 PM",
+          text: "Please update your passwords regularly.",
+        },
+      ];
+
+      // ===== Инициализация =====
+      function init() {
+        console.log("🚀 Web Interface initialized...");
+
+        // Загрузка сохраненного вида
+        const savedView = localStorage.getItem("citrix-view");
+        if (savedView && ["large", "small", "list"].includes(savedView)) {
+          state.currentView = savedView;
+          viewSelector.value = savedView;
+        }
+
+        renderAnnouncements();
+        updateUI();
+        updateView();
+        hideLoading();
+
+        // Плавное появление body
+        setTimeout(() => {
+          document.body.style.opacity = "1";
+        }, 100);
+      }
+
+      // ===== Рендер объявлений =====
+      function renderAnnouncements() {
+        const list = document.getElementById("announcement-list");
+        list.innerHTML = announcementsData
+          .map(
+            (item) => `<li><strong>${item.date}</strong> — ${item.text}</li>`,
+          )
+          .join("");
+      }
+
+      // ===== Обновление UI =====
+      function updateUI() {
+        // Вкладки
+        tabs.forEach((tab) => {
+          if (tab.dataset.tab === state.currentTab) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
+        // Подсказка
+        if (state.isHintVisible) {
+          hintBox.style.display = "flex";
+        } else {
+          hintBox.style.display = "none";
+        }
+
+        // Статус пользователя
+        userStatusText.textContent = `Logged on as: ${state.currentUser}`;
+
+        // Кнопка входа/выхода
+        if (state.currentUser === "Guest") {
+          authBtn.textContent = "Log In";
+          authBtn.classList.remove("logout");
+          authBtn.classList.add("login-btn");
+        } else {
+          authBtn.textContent = "Log Off";
+          authBtn.classList.add("logout");
+          authBtn.classList.remove("login-btn");
+        }
+
+        // Поле поиска
+        searchInput.value = state.searchQuery;
+      }
+
+      // ===== Обновление вида =====
+      function updateView() {
+        const view = viewSelector.value;
+        state.currentView = view;
+
+        const mainContent = document.querySelector(".main-content");
+        mainContent.classList.remove("view-large", "view-small", "view-list");
+
+        if (view === "large") {
+          mainContent.classList.add("view-large");
+        } else if (view === "small") {
+          mainContent.classList.add("view-small");
+        } else if (view === "list") {
+          mainContent.classList.add("view-list");
+        }
+
+        localStorage.setItem("citrix-view", view);
+        console.log(`✅ View changed to: ${view}`);
+      }
+
+      // ===== Фильтрация приложений =====
+      function filterApps() {
+        const query = state.searchQuery.toLowerCase();
+        let visibleCount = 0;
+
+        appIcons.forEach((icon) => {
+          const name = icon.dataset.name.toLowerCase();
+          if (name.includes(query)) {
+            icon.style.display = "flex"; // Возвращаем нужный display
+            if (state.currentView === "list") icon.style.display = "flex";
+            visibleCount++;
+          } else {
+            icon.style.display = "none";
+          }
+        });
+
+        // Показываем сообщение, если ничего не найдено
+        if (visibleCount === 0 && query.length > 0) {
+          noResults.classList.add("visible");
+          appGrid.style.display = "none";
+        } else {
+          noResults.classList.remove("visible");
+          // Восстанавливаем сетку в зависимости от вида
+          if (state.currentView === "list") {
+            appGrid.style.display = "flex";
+          } else {
+            appGrid.style.display = "grid";
+          }
+        }
+      }
+
+      // ===== Обработчики =====
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          state.currentTab = tab.dataset.tab;
+          showLoading();
+          setTimeout(() => {
+            updateUI();
+            hideLoading();
+            // Здесь можно добавить логику загрузки контента для вкладки
+            if (state.currentTab !== "applications") {
+              showToast(`Tab "${state.currentTab}" is under construction.`);
+            }
+          }, 800);
+        });
+      });
+
+      // Клик по иконкам приложений
+      appIcons.forEach((icon) => {
+        icon.addEventListener("click", () => {
+          const appName = icon.dataset.app;
+          const appUrls = {
+            acrobat: "https://www.adobe.com/acrobat/online/pdf-editor.html",
+            word: "https://docs.google.com/document/u/0/",
+            excel: "https://docs.google.com/spreadsheets/u/0/",
+            powerpoint: "https://docs.google.com/presentation/u/0/",
+            photoshop: "https://www.adobe.com/products/photoshop-express.html",
+            winzip: "https://www.winzip.com/",
+            quickbooks: "https://quickbooks.intuit.com/",
+            access: "https://office.live.com/start/Access.aspx",
+            publisher:
+              "https://www.microsoft.com/en-us/microsoft-365/publisher",
+            illustrator: "https://www.adobe.com/products/illustrator.html",
+            indesign: "https://www.adobe.com/products/indesign.html",
+            dreamweaver: "https://www.adobe.com/products/dreamweaver.html",
+          };
+
+          showLoading();
+          setTimeout(() => {
+            if (appUrls[appName]) {
+              window.open(appUrls[appName], "_blank");
+            } else {
+              showToast(`Application "${appName}" has no web version.`);
+            }
+            hideLoading();
+          }, 800);
+        });
+      });
+
+      // Поиск (ввод)
+      searchInput.addEventListener("input", () => {
+        state.searchQuery = searchInput.value.trim();
+
+        if (state.searchQuery.length > 0) {
+          searchInput.style.backgroundColor = "#004d73";
+          searchInput.style.color = "#ffffff";
+        } else {
+          searchInput.style.backgroundColor = "#003355";
+          searchInput.style.color = "#ffffff";
+        }
+
+        filterApps(); // Живая фильтрация
+      });
+
+      // Поиск (Enter)
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          showLoading();
+          setTimeout(() => {
+            if (state.searchQuery) {
+              showToast(`Searching for: "${state.searchQuery}"`);
+            }
+            hideLoading();
+          }, 500);
+        }
+      });
+
+      // Клик по иконке поиска
+      document.getElementById("search-btn").addEventListener("click", () => {
+        if (state.searchQuery) {
+          showToast(`Searching for: "${state.searchQuery}"`);
+        } else {
+          showToast("Please enter a search term.");
+        }
+      });
+
+      // Закрытие подсказки
+      hintClose.addEventListener("click", () => {
+        state.isHintVisible = false;
+        updateUI();
+      });
+
+      // Авторизация (Log In / Log Off)
+      window.handleAuth = function (event) {
+        event.preventDefault();
+        if (state.currentUser === "Guest") {
+          // Открываем модальное окно
+          loginModal.classList.add("active");
+        } else {
+          // Выход
+          showLoading();
+          setTimeout(() => {
+            state.currentUser = "Guest";
+            state.currentTab = "applications";
+            state.searchQuery = "";
+            state.isHintVisible = true;
+
+            updateUI();
+            updateView();
+
+            // Сброс поиска
+            searchInput.value = "";
+            appIcons.forEach((icon) => (icon.style.display = "flex"));
+            noResults.classList.remove("visible");
+
+            hideLoading();
+            showToast("You have been logged out.");
+          }, 1000);
+        }
+      };
+
+      // Функция входа
+      window.performLogin = function () {
+        const username = document.getElementById("login-username").value.trim();
+        if (!username) {
+          showToast("Please enter a username.");
+          return;
+        }
+
+        showLoading();
+        loginModal.classList.remove("active");
+
+        setTimeout(() => {
+          state.currentUser = username;
+          state.loginTime = new Date().toLocaleString();
+          document.getElementById("info-last-login").textContent =
+            state.loginTime;
+          document.getElementById("info-name").textContent = username;
+
+          updateUI();
+          hideLoading();
+          showToast(`Welcome back, ${username}!`);
+        }, 1000);
+      };
+
+      window.closeLoginModal = function () {
+        loginModal.classList.remove("active");
+      };
+
+      // Переключение вида
+      viewSelector.addEventListener("change", () => {
+        showLoading();
+        setTimeout(() => {
+          updateView();
+          filterApps(); // Переприменяем фильтр, чтобы сетка/список отображались правильно
+          hideLoading();
+        }, 500);
+      });
+
+      // ===== Тосты (Уведомления) =====
+      window.showToast = function (message) {
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
+
+        // Автоудаление через 3 секунды
+        setTimeout(() => {
+          toast.classList.add("fade-out");
+          setTimeout(() => {
+            if (toast.parentNode) {
+              toast.parentNode.removeChild(toast);
+            }
+          }, 300);
+        }, 3000);
+      };
+
+      // ===== Анимации =====
+      function showLoading() {
+        state.isLoading = true;
+        loadingScreen.classList.add("active");
+      }
+
+      function hideLoading() {
+        state.isLoading = false;
+        loadingScreen.classList.remove("active");
+      }
+
+      // ===== Запуск =====
+      document.addEventListener("DOMContentLoaded", init);
+
+      document.querySelectorAll(".fade-in").forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.05}s`;
+      });
+    </script>
+  </body>
+</html>
